@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Banken</h1>
+
+  <h2>Alla konton</h2>
+  <ul id="accountsList"></ul>
+
+  <section>
+    <h2>Skapa nytt konto</h2>
+    <p>Fyll i namn på kontot samt hur mycket pengar som sätts in. Kontonummer genereras automatiskt.</p>
+    <form action="" id="addAccount">
+      <label for="title">Namn på kontot</label>
+      <input type="text" id="title"><br>
+      <label for="balance">Saldo</label>
+      <input type="number" step=".01" min="0" id="balance"><br>
+      <button>Lägg till konto</button>
+    </form>
+  </section>
+  <script src="main.js"></script>
+</body>
+</html>
