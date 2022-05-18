@@ -75,19 +75,18 @@ registerform.addEventListener('submit', async (e) => {
   div.append(hello);
 });
 
-//dölj logout & register
+//DÖLJ LOGGA UT
 const hideLogout = ()=> {
   logoutform.classList.add('hidden');
 }
 
-
-//dölj konton 
+//DÖLJ RUBRIKER
 const hideAccounts = ()=> {
   document.getElementById('allAccounts').classList.add('hidden');
   document.getElementById('createAccount').classList.add('hidden');
 }
 
-//dölj login & visa välkomsttext
+//DÖLJ LOGIN-FORMULÄR FÖR INLOGGADE ANVÄNDARE
 const welcomeMessage = () => {
   loginform.classList.add('hidden');
   document.getElementById('loginHeading').classList.add('hidden');
@@ -95,7 +94,6 @@ const welcomeMessage = () => {
   div.innerHTML = `Välkommen till banken!`
   registerform.classList.add('hidden');
 }
-
 
 //HÅLL KOLL PÅ INLOGGAD ELLER EJ
 const getUser = async () => {
@@ -112,33 +110,22 @@ const getUser = async () => {
 }
 getUser();
 
-
-
-
-//hämta alla konton från API:et 
+//HÄMTA ALLA KONTON
 const getAllAccounts = async ()=> {
   const res = await fetch('/api/accounts');
   const data = await res.json();
   renderAccounts(data);
 }
 
-
-//och skriv ut namn i li-taggar i listOfAccounts - kortar ner id till 10 siffror pga ser snyggare ut
+//RENDERA KONTOINFORMATION
 const renderAccounts = (data) => {
   data.forEach(account => {
     listOfAccounts.innerHTML += `<li><a href="/account.html?account=${account._id}">${account.title}</a> <br> Kontonummer ${account._id.slice(0, 10)} <br> Saldo ${account.balance} kr</li>`
     //länken tar en till account.html med användarens ID som query-string. Se account.js!
-
   })  
 }
 
-
-//länk från listan med konton till separat kontosida där man kan ta ut & sätta in pengar samt radera kontot helt. Användarvänligt
-//funktionalitet för att lägga till och ta ut pengar samt ta bort konto
-
-
-
-//formulär för att lägga till konto
+//SKAPA KONTO-FORMULÄRET
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 

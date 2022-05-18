@@ -8,17 +8,16 @@
 </head>
 <body>
   <h2>Kontoinformation</h2>
-  <!--Rendera kontoInfo-->
   <div id="accountInfo"></div>
 
   <form action="" id="addCash">
     <label for="addAmount">Summa att sätta in</label>
-    <input type="number" id="addAmount">
+    <input type="number" step=".01" min="0" id="addAmount">
     <button>Sätt in</button>
   </form>
   <form action="" id="withdrawCash">
     <label for="withdrawAmount">Summa att ta ut</label>
-    <input type="number" id="withdrawAmount">
+    <input type="number" step=".01" min="0" id="withdrawAmount">
     <button>Ta ut pengar</button>
   </form>
   <form action="" id="deleteAccount">
