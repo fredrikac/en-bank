@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import { MongoClient, ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
 
 const port = 3000;
 const app = express();
@@ -14,7 +15,6 @@ const users = db.collection('users');
 app.use(express.static('public'));
 app.use(express.json());
 
-//Session 
 app.use(session({
   resave: false, 
   saveUninitialized: false, 
@@ -23,24 +23,6 @@ app.use(session({
     maxAge: 5 * 60 * 1000 
   }
 }));
-
-//INLOGGNING
-app.post('/api/login', async (req, res) => {
-  const user = await users.findOne({ 
-    user: req.body.loginName,
-    pass: req.body.loginPass
-  });
-
-  if(user){
-    req.session.user = user; 
-    res.json({
-      user: user.user
-     
-    });
-  }else{
-    res.status(401).send('Unauthorized');
-  }
-});
 
 //GET SESSIONSINFO
 app.get('/api/loggedin', (req, res) => {
@@ -51,7 +33,25 @@ app.get('/api/loggedin', (req, res) => {
   } 
 });
 
-//LOGGA UT
+//KRYPTERING
+const saltRounds = 10;
+
+//INLOGGNING
+app.post('/api/login', async (req, res) => {
+  const user = await users.findOne( { user: req.body.loginName } );
+  const passMatches = await bcrypt.compare(req.body.loginPass, user.pass);
+  if (user && passMatches) {
+    req.session.user = user;
+    
+    res.json({
+      user: user.user
+    });
+  } else { 
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+});
+
+//UTLOGGNING
 app.post('/api/logout', (req, res) => {
   req.session.destroy(() => {
     res.json({
@@ -59,9 +59,6 @@ app.post('/api/logout', (req, res) => {
     });
   });
  });
-
-
-/*API-ROUTES MOT DB*/
 
 //HÄMTA ALLA KONTON
 app.get('/api/accounts', async (req, res) => {
@@ -90,8 +87,11 @@ app.post('/api/accounts', async (req, res) => {
 
 //SKAPA NY ANVÄNDARE
 app.post('/api/users', async (req, res) => {
+  const hash = await bcrypt.hash(req.body.pass, saltRounds);
+
   const user = {
-    ...req.body
+    user: req.body.user,
+    pass: hash
   }
 
   await users.insertOne(user);

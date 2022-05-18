@@ -10,6 +10,7 @@ const loginName = document.getElementById('loginname');
 const loginPass = document.getElementById('loginpass');
 const div = document.getElementById('messageDiv');
 
+//UTLOGGNING & REGISTRERING
 const logoutform = document.getElementById('logout');
 const registerform = document.getElementById('register');
 const newUsername = document.getElementById('registerName');
@@ -71,7 +72,7 @@ registerform.addEventListener('submit', async (e) => {
   const data = await res.json(); 
 
   let hello = document.createElement('h2');
-  hello.innerHTML = `Thank you for becoming a member!`
+  hello.innerHTML = `Välkommen till Banken! Du kan nu logga in.`
   div.append(hello);
 });
 
@@ -97,7 +98,7 @@ const welcomeMessage = () => {
 
 //HÅLL KOLL PÅ INLOGGAD ELLER EJ
 const getUser = async () => {
-  const res = await fetch('/api/loggedin'); //vanlig fetch mot url:en
+  const res = await fetch('/api/loggedin'); 
   const user = await res.json();
   console.log(user);
   if(user.error === 'Unauthorized'){

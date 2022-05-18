@@ -72,9 +72,7 @@ withdrawForm.addEventListener('submit', async (e) => {
   const data = await res.json(); 
   console.log(data);
   location.reload();
-})
-
-let entries = [];
+});
 
 //HÄMTA KONTOINFO
 const getAccountInfo = async (id) => {
@@ -85,7 +83,10 @@ const getAccountInfo = async (id) => {
 }
 getAccountInfo(id);
 
+//SPARA KONTOINFO FÖR ATT FÅ UT CURRENTBALANCE I INSÄTTNING/UTTAG
+let entries = [];
+
 //RENDERA KONTOINFO
 const renderAccount = (data) => {
-  accountInfo.innerHTML = `<p>${data.title} <br> Kontonummer ${data._id.slice(0, 10)} <br> Saldo ${data.balance} kr</p>`;
+  accountInfo.innerHTML = `<p>${data.title} <br> Kontonummer: ${data._id.slice(0, 10)} <br> Saldo: ${data.balance} kr</p>`;
 }
