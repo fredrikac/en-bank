@@ -5,14 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Banken</h1>
+<h2 id="loginHeading">Logga in</h2>
+  <form action="" id="login">
+    <label for="loginname">Användarnamn</label>
+    <input type="text" id="loginname"><br>
+    <label for="loginpass">Lösenord</label>
+    <input type="text" id="loginpass">
+    <button>Logga in</button>
+  </form>
 
-  <h2>Alla konton</h2>
-  <ul id="accountsList"></ul>
+  <form action="" id="logout">
+    <button>Logga ut</button>
+  </form>
 
-  <section>
+<h2 id="registerHeading">Ny här? Registrera dig</h2>
+  <form action="" id="register">
+    <label for="registerName">Nytt användarnamn</label>
+    <input type="text" id="registerName"><br>
+    <label for="registerPass">Nytt lösenord</label>
+    <input type="text" id="registerPass">
+    <button>Skapa ny användare</button>
+  </form>
+  <div id="messageDiv"></div>
+
+
+  <section id="allAccounts">
+    <h2>Alla konton</h2>
+    <ul id="accountsList"></ul>
+  </section>
+  <section id="createAccount">
     <h2>Skapa nytt konto</h2>
     <p>Fyll i namn på kontot samt hur mycket pengar som sätts in. Kontonummer genereras automatiskt.</p>
     <form action="" id="addAccount">
